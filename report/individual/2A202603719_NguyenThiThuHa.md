@@ -70,16 +70,6 @@ Cơ chế: tin nhắn chứa gần đủ dấu hiệu của spam (*won £1000*, 
 
 **Cách làm:** lặp qua `h ∈ {4, 512}`, gọi `build_mlp(len(vocab), hidden=h)`, train với cùng `SEED`, rồi đo F1 trên test và thời gian train.
 
-**Kết quả:**
-
-| Hidden | Số tham số | F1 test | Train (s) |
-| ---: | ---: | ---: | ---: |
-| 4 | 8,009 | [điền] | [điền] |
-| 64 (Phần 2) | 128,129 | 0.938 | 2.86 |
-| 512 | 1,025,025 | [điền] | [điền] |
-
-**Giải thích:** [điền]
-
 ## 6. Phương án cho sản phẩm thật
 
 **Yêu cầu:** 10 triệu SMS/ngày (trung bình khoảng 116 tin/s) và p95 < 50 ms/tin.
