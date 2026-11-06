@@ -1,0 +1,247 @@
+{
+ "seed": 7574,
+ "predictions": {
+  "ml_f1": {
+   "text": "0.95",
+   "time": "13:21:43"
+  },
+  "ml_lr": {
+   "text": "loss chưa hội tụ và giảm chậm, loss bị gấp khúc",
+   "time": "13:21:53"
+  },
+  "dl_curve": {
+   "text": "(1) không giảm mãi,(2) MLP ngang logistic regression",
+   "time": "13:22:58"
+  },
+  "dl_relu": {
+   "text": "tương đương logistic regression, f1 tụt về gần bài logistic regression ",
+   "time": "13:23:03"
+  },
+  "emb_search": {
+   "text": "Spam",
+   "time": "13:25:20"
+  },
+  "emb_tricky": {
+   "text": "3b.Encoder+ LogReg đúng nhiều hơn",
+   "time": "13:44:15"
+  },
+  "llm_models": {
+   "text": "model terra cho F1 cao hơn khoảng 5 điểm, model lớn đắt khoảng 10 lần, LLM ngang hoặc thấp hơn 3b",
+   "time": "15:58:26"
+  },
+  "llm_fewshot": {
+   "text": "F1 giảm nhẹ, chi phí tăng 2-3 lần",
+   "time": "16:08:06"
+  },
+  "tradeoff": {
+   "text": "Trên Pareto: BoW+LogReg (nhanh nhất), BoW+MLP và Embedding+MLP head (F1 SUB 1.000, p95 khoảng 29ms, dưới 50ms). Các hàng Embedding còn lại và cả 3 hàng LLM bị lấn át vì cùng F1 SUB mà chậm hơn. Bên phải vạch 50ms: kNN (khoảng 71ms) và cả 3 hàng LLM (khoảng 2,4 giây)",
+   "time": "16:18:20"
+  },
+  "hard_eval": {
+   "text": "Accuracy trên 50 case khó tụt mạnh: BoW khoảng 55-65%, Embedding khoảng 65-75%, LLM nhỏ khoảng 75-90%. BoW khó nhất ở nhóm né từ khoá (từ lạ như C0ngr4tulat10ns nằm ngoài từ điển) và nhóm ham trông như spam (chứa từ khoá spam). LLM khó nhất ở prompt injection (có thể bị câu Ignore all previous instructions lừa) và nhóm nói về spam (dễ gán nhầm là spam)",
+   "time": "16:25:49"
+  }
+ },
+ "checks": {
+  "1.1 vectorize": true,
+  "1.2 sigmoid / predict_proba": true,
+  "1.3 train_logreg": true,
+  "1.4 metrics": true,
+  "2.1 build_mlp": true,
+  "2.2 train_mlp": true,
+  "3.1–3.2 cosine / top_k_similar": true,
+  "3.3 knn_predict": true,
+  "4.2–4.3 prompt / parse_label": true,
+  "4.1 + 4.4 call_openai / llm_classify_batch": true,
+  "tính tay: baseline_accuracy": true,
+  "tính tay: sigmoid_0": true,
+  "tính tay: f1_example": true,
+  "tính tay: cosine_example": true,
+  "tính tay: llm_cost_per_day": true
+ },
+ "experiments": [
+  {
+   "key": "ml_f1",
+   "time": "13:21:45"
+  },
+  {
+   "key": "dl_curve",
+   "time": "13:22:58"
+  },
+  {
+   "key": "dl_relu",
+   "time": "13:23:05"
+  },
+  {
+   "key": "emb_search",
+   "time": "13:25:20"
+  },
+  {
+   "key": "emb_tricky",
+   "time": "13:44:19"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:16:12"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:16:15"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:16:27"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:17:29"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "15:24:54"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:38:26"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:42:47"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:54:09"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "15:55:45"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:58:29"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "16:00:06"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "16:08:13"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "16:08:19"
+  },
+  {
+   "key": "tradeoff",
+   "time": "16:18:22"
+  },
+  {
+   "key": "hard_eval",
+   "time": "16:25:51"
+  },
+  {
+   "key": "hard_eval",
+   "time": "16:36:36"
+  }
+ ],
+ "challenge": 2,
+ "results": {
+  "1. BoW + LogReg (tự code)": {
+   "accuracy": 0.9780645161290322,
+   "precision": 1.0,
+   "recall": 0.8172043010752689,
+   "f1": 0.8994082840236686,
+   "f1_SUB": 0.888888888888889,
+   "train_s": 1.527336341000023,
+   "msg_per_s": 56190.72829792065,
+   "p50_ms": 0.025359999938245892,
+   "p95_ms": 0.05356995001761785,
+   "usd_per_1k": 0.0
+  },
+  "2. BoW + MLP (deep learning)": {
+   "accuracy": 0.9858064516129033,
+   "precision": 0.9880952380952381,
+   "recall": 0.8924731182795699,
+   "f1": 0.9378531073446327,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 2.862884046999966,
+   "msg_per_s": 61994.787477911574,
+   "p50_ms": 0.12115999999195992,
+   "p95_ms": 0.1484260000211179,
+   "usd_per_1k": 0.0
+  },
+  "3a. Encoder (MiniLM) + kNN": {
+   "accuracy": 0.9819354838709677,
+   "precision": 0.9157894736842105,
+   "recall": 0.9354838709677419,
+   "f1": 0.925531914893617,
+   "f1_SUB": 1.0,
+   "train_s": 70.34719681999991,
+   "msg_per_s": 41.75704453625987,
+   "p50_ms": 42.76257750007062,
+   "p95_ms": 71.11176349999369,
+   "usd_per_1k": 0.0
+  },
+  "3b. Encoder (MiniLM) + LogReg": {
+   "accuracy": 0.9909677419354839,
+   "precision": 0.9574468085106383,
+   "recall": 0.967741935483871,
+   "f1": 0.9625668449197862,
+   "f1_SUB": 1.0,
+   "train_s": 70.62367778599992,
+   "msg_per_s": 46.37397869989787,
+   "p50_ms": 21.55626399985522,
+   "p95_ms": 30.36002954989953,
+   "usd_per_1k": 0.0
+  },
+  "3c. Encoder (MiniLM) + MLP head": {
+   "accuracy": 0.9896774193548387,
+   "precision": 0.967032967032967,
+   "recall": 0.946236559139785,
+   "f1": 0.9565217391304348,
+   "f1_SUB": 1.0,
+   "train_s": 71.18529237599978,
+   "msg_per_s": 46.97082051172361,
+   "p50_ms": 21.13744900009351,
+   "p95_ms": 29.23195254998063,
+   "usd_per_1k": 0.0
+  },
+  "4a. LLM nhỏ zero-shot": {
+   "accuracy": 1.0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "f1_SUB": 1.0,
+   "train_s": 0.0,
+   "msg_per_s": 1.1541257639395706,
+   "p50_ms": 355.2904514990587,
+   "p95_ms": 2405.9299119995558,
+   "usd_per_1k": 0.00515
+  },
+  "4b. LLM lớn zero-shot": {
+   "accuracy": 1.0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "f1_SUB": 1.0,
+   "train_s": 0.0,
+   "msg_per_s": 1.156797716334469,
+   "p50_ms": 354.6919509990403,
+   "p95_ms": 2401.44973834922,
+   "usd_per_1k": 0.0103
+  },
+  "4c. LLM nhỏ few-shot": {
+   "accuracy": 0.975,
+   "precision": 1.0,
+   "recall": 0.95,
+   "f1": 0.9743589743589743,
+   "f1_SUB": 0.9743589743589743,
+   "train_s": 0.0,
+   "msg_per_s": 0.7164369708493092,
+   "p50_ms": 1040.6987244996344,
+   "p95_ms": 3196.0266125000085,
+   "usd_per_1k": 0.014250000000000002
+  }
+ }
+}
